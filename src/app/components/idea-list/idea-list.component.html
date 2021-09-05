@@ -1,1 +1,13 @@
-<p>idea-list works!</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+  <div class="card bordered" *ngFor="let idea of ideaList">
+    <div class="card-body">
+      <h2 class="card-title">{{idea.title}}
+        <div class="badge mx-2 badge-secondary">NEW</div>
+      </h2>
+      <p>{{idea.description}}</p>
+      <div class="justify-end card-actions">
+        <button class="btn btn-secondary" routerLink="/{{user.username}}/ideas/{{idea.id}}">More info</button>
+      </div>
+    </div>
+  </div>
+</div>
