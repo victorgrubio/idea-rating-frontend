@@ -29,6 +29,13 @@ export class IdeaListComponent implements OnInit {
     );
   }
 
+  deleteIdea(idea: Idea){
+    this.ideaService.delete(idea.id).subscribe(
+      this.processDeleteIdea(idea)
+    );
+  }
+
+
   processIdeaList(){
     return (data: Idea[]) => {
       this.ideaList = data;
@@ -36,5 +43,12 @@ export class IdeaListComponent implements OnInit {
   }
 
 
-
+  private processDeleteIdea(idea: Idea) {
+    return () => {
+      let index: number = this.ideaList.indexOf(idea);
+      if (index !== -1){
+        this.ideaList.splice(index, 1);
+      }
+    };
+  }
 }
