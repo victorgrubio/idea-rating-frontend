@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit{
     if (!this.isEmptyObject(user)) {
       this.isLoggedIn = true;
       this.user = user;
-      this.router.navigate([`/users/${user.username}/ideas`])
+      this.router.navigate([`/${user.username}/ideas`])
     }
   }
 

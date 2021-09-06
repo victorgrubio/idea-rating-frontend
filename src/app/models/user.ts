@@ -1,7 +1,7 @@
 export class User {
-  username: string;
+  username?: string | null;
 
-  constructor(username: string) {
+  constructor(username?: string) {
     this.username = username;
   }
 }

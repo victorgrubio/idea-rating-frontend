@@ -6,21 +6,26 @@ import { AppComponent } from './app.component';
 import { IdeaDetailComponent } from './components/idea-detail/idea-detail.component';
 import { IdeaListComponent } from './components/idea-list/idea-list.component';
 import { LoginComponent } from './components/login/login.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { IdeaFormComponent } from './components/idea-form/idea-form.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IdeaDetailComponent,
     IdeaListComponent,
-    LoginComponent
+    LoginComponent,
+    IdeaFormComponent,
+    NavbarComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]
