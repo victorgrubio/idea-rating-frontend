@@ -1,0 +1,58 @@
+<div class="mt-5 ml-14 text-2xl">
+  <h1>Vote Idea</h1>
+</div>
+<div class="mt-5 ml-20 max-w-lg">
+  <form
+    name="form"
+    (ngSubmit)="f.form.valid && sendVote()"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="form-row mt-5 mb-5">
+      <div class="form-group col-5">
+        <h2 class="font-bold">Title</h2>
+        <p>{{idea.title}}</p>
+      </div>
+    </div>
+    <div class="form-row mt-5 mb-5">
+      <div class="form-group col-5">
+        <h2 class="font-bold">Description</h2>
+        <p>{{idea.description}}</p>
+      </div>
+    </div>
+    <div class="form-row mt-5 mb-5" *ngFor="let sentence of idea.evaluationSentenceList">
+      <label class="cursor-pointer label">
+        <span class="label-text font-bold">{{sentence.type}}</span>
+        <span class="label-text">{{sentence.content}}</span>
+        <input type="checkbox" class="checkbox" [ngClass]="{
+        'checkbox-primary': sentence.type == 'pro',
+        'checkbox-error': sentence.type == 'con'}"
+        (change)="onSentenceVoteChange($event, sentence.id!)">
+      </label>
+    </div>
+    <h2 class="mb-2 font-bold">Username</h2>
+    <p class="mb-2">Please provide a username to register the vote</p>
+    <div class="form-control">
+      <input type="text" placeholder="username" class="input input-bordered mb-3"
+             name="username"
+             [(ngModel)]="form.username"
+             required
+             #username="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="username.errors && f.submitted"
+      >
+        Username is required!
+      </div>
+    </div>
+    <div class="form-group mt-5 mb-20">
+      <button routerLink="/{{user.username}}}/ideas" class="btn btn-link">Cancel</button>
+      <button class="btn btn-primary">
+        <span class="spinner-border spinner-border-sm mr-1"></span>
+        Vote
+      </button>
+    </div>
+  </form>
+</div>

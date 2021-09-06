@@ -10,6 +10,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { IdeaFormComponent } from './components/idea-form/idea-form.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import {ClipboardModule} from "ngx-clipboard";
+import { IdeaVoteFormComponent } from './components/idea-vote-form/idea-vote-form.component';
 
 @NgModule({
   declarations: [
@@ -18,14 +20,16 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     IdeaListComponent,
     LoginComponent,
     IdeaFormComponent,
-    NavbarComponent
+    NavbarComponent,
+    IdeaVoteFormComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ClipboardModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,6 +5,7 @@ import {Idea} from "../models/idea";
 import {Observable} from "rxjs";
 import {DataStorageService} from "./data-storage.service";
 import {EvaluationSentenceType, EvaluationSentenceWeight} from "../models/evaluation-sentence";
+import {UserVote} from "../models/user-vote";
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,13 @@ export class IdeaService {
   getSentenceWeights() {
     let url = `${this.apiUrl}/ideas/sentence-weights`
     return this.httpClient.get<EvaluationSentenceWeight[]>(url)
+  }
+
+  voteIdea(username: string, ideaId: number, userVote: UserVote){
+    let url = `${this.apiUrl}/${username}/ideas/${ideaId}/votes`
+    console.log('Voting idea ')
+    console.log(userVote);
+    console.log(url)
+    return this.httpClient.post<Idea>(url, userVote)
   }
 }
