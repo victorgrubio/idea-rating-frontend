@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {Idea} from "../models/idea";
 import {Observable} from "rxjs";
 import {DataStorageService} from "./data-storage.service";
+import {EvaluationSentenceType, EvaluationSentenceWeight} from "../models/evaluation-sentence";
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,10 @@ export class IdeaService {
     let url = `${this.apiUrl}/${username}/ideas/${id}`
     return this.httpClient.delete<Idea>(url)
 
+  }
+
+  getSentenceWeights() {
+    let url = `${this.apiUrl}/ideas/sentence-weights`
+    return this.httpClient.get<EvaluationSentenceWeight[]>(url)
   }
 }

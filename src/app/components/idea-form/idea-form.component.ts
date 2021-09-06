@@ -4,9 +4,8 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { first } from 'rxjs/operators';
 import {IdeaService} from "../../services/idea.service";
 import {AlertService} from "../../services/alert.service";
-
-class EvaluationSentence {
-}
+import {EvaluationSentenceType, EvaluationSentenceWeight} from "../../models/evaluation-sentence";
+import {DataStorageService} from "../../services/data-storage.service";
 
 @Component({
   selector: 'app-idea-form',
@@ -20,16 +19,21 @@ export class IdeaFormComponent implements OnInit {
   isAddMode: boolean;
   loading = false;
   submitted = false;
+  sentenceTypeEnum = EvaluationSentenceType;
+  sentenceImportanceWeightList :EvaluationSentenceWeight[] = [];
+  user: any = {};
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private ideaService: IdeaService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private dataStorageService: DataStorageService
   ) {}
 
   ngOnInit() {
+    this.user = this.dataStorageService.getUser();
     this.id = this.route.snapshot.params['ideaId'];
     this.isAddMode = !this.id;
 
@@ -44,6 +48,8 @@ export class IdeaFormComponent implements OnInit {
         .pipe(first())
         .subscribe(x => this.form.patchValue(x));
     }
+
+    this.getImportanceWeightList();
   }
 
   // convenience getter for easy access to form fields
@@ -62,8 +68,8 @@ export class IdeaFormComponent implements OnInit {
   createEvaluationSentence(): FormGroup{
     return this.formBuilder.group({
       content: [''],
-      type: ['PRO'],
-      weight: ['LOW']
+      type: [''],
+      weight: ['']
     })
   }
 
@@ -71,6 +77,14 @@ export class IdeaFormComponent implements OnInit {
     // remove address from the list
     let control = <FormArray>this.form.controls['evaluationSentences'];
     control.removeAt(i);
+  }
+
+  getImportanceWeightList(){
+    return this.ideaService.getSentenceWeights().subscribe(
+      (data) => {
+        this.sentenceImportanceWeightList = data;
+      }
+    )
   }
 
   onSubmit() {
