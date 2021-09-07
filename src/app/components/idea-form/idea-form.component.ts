@@ -3,7 +3,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {IdeaService} from "../../services/idea.service";
-import {EvaluationSentence, EvaluationSentenceType, EvaluationSentenceWeight} from "../../models/ideas/evaluation-sentence";
+import {
+  EvaluationSentence,
+  EvaluationSentenceType,
+  EvaluationSentenceWeight
+} from "../../models/ideas/evaluation-sentence";
 import {DataStorageService} from "../../services/data-storage.service";
 import {User} from "../../models/ideas/user";
 
@@ -22,6 +26,11 @@ export class IdeaFormComponent implements OnInit {
   sentenceTypeEnum = EvaluationSentenceType;
   sentenceImportanceWeightList :EvaluationSentenceWeight[] = [];
   user: User = new User();
+  private conCounter: number = 0;
+  private proCounter: number = 0;
+  validProConSentences = true;
+  MAX_SENTENCES = 5;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,6 +63,11 @@ export class IdeaFormComponent implements OnInit {
           })
         })
     }
+  }
+
+  updateCounters(sentence: EvaluationSentence): void{
+    if (sentence.type == EvaluationSentenceType.CON){ this.conCounter += 1}
+    else if (sentence.type == EvaluationSentenceType.PRO){this.proCounter += 1}
   }
 
   // convenience getter for easy access to form fields
@@ -97,21 +111,24 @@ export class IdeaFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
 
+    this.checkSentenceTypeConstraints()
     // stop here if form is invalid
     if (this.form.invalid) {
       return;
     }
 
-    this.loading = true;
-    if (this.isAddMode) {
+
+    if (this.isAddMode && this.validProConSentences) {
       console.log('creating idea')
+      this.submitted = true;
       this.createIdea();
-    } else {
+    } else if (this.validProConSentences) {
       console.log('updating idea')
+      this.submitted = true;
       this.updateIdea();
     }
+
   }
 
   private createIdea() {
@@ -138,6 +155,17 @@ export class IdeaFormComponent implements OnInit {
           this.loading = false;
         }
       });
+  }
+
+  checkSentenceTypeConstraints(): void{
+    let controls = this.getEvaluationSentencesControl();
+    controls.map(evaluationSentence => {
+      this.updateCounters(evaluationSentence.value)
+    })
+    this.validProConSentences = !(this.proCounter > this.MAX_SENTENCES || this.conCounter > this.MAX_SENTENCES);
+    this.proCounter = 0;
+    this.conCounter = 0;
+
   }
 
 }
