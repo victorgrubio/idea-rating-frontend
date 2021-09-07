@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {IdeaService} from "../../services/idea.service";
 import {DataStorageService} from "../../services/data-storage.service";
-import {Idea} from "../../models/idea";
-import {User} from "../../models/user";
+import {Idea} from "../../models/ideas/idea";
+import {User} from "../../models/ideas/user";
 
 @Component({
   selector: 'app-idea-list',

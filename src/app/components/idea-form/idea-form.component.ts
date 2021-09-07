@@ -3,9 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {IdeaService} from "../../services/idea.service";
-import {EvaluationSentence, EvaluationSentenceType, EvaluationSentenceWeight} from "../../models/evaluation-sentence";
+import {EvaluationSentence, EvaluationSentenceType, EvaluationSentenceWeight} from "../../models/ideas/evaluation-sentence";
 import {DataStorageService} from "../../services/data-storage.service";
-import {User} from "../../models/user";
+import {User} from "../../models/ideas/user";
 
 @Component({
   selector: 'app-idea-form',
@@ -39,7 +39,7 @@ export class IdeaFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      evaluationSentences: this.formBuilder.array([this.createEvaluationSentence(),])
+      evaluationSentences: this.formBuilder.array([])
     });
 
     this.getImportanceWeightList();
@@ -47,19 +47,12 @@ export class IdeaFormComponent implements OnInit {
     if (!this.isAddMode) {
       this.ideaService.getById(this.id)
         .pipe(first())
-        .subscribe(x => {
-          let fc = this.getEvaluationSentencesControl()
-          this.form.patchValue(x)
-          if (x.evaluationSentenceList){
-            for (let i = 0; i < x.evaluationSentenceList.length; i++){
-              let sentence: EvaluationSentence = x.evaluationSentenceList[i];
-              fc[i].patchValue(sentence);
-              if (i < x.evaluationSentenceList.length - 1){
-                this.addEvaluationSentence();
-              }
-            }
-          }
-        });
+        .subscribe(idea => {
+          this.form.patchValue(idea)
+          idea.evaluationSentenceList?.map(sentence => {
+            this.getEvaluationSentencesControl().push(this.formBuilder.group(sentence))
+          })
+        })
     }
   }
 
@@ -105,7 +98,6 @@ export class IdeaFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
 
     // stop here if form is invalid
     if (this.form.invalid) {

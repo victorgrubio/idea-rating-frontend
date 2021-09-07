@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Idea} from "../../models/idea";
+import {Idea} from "../../models/ideas/idea";
 import {IdeaService} from "../../services/idea.service";
 import {DataStorageService} from "../../services/data-storage.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserVote} from "../../models/user-vote";
-import {User} from "../../models/user";
+import {UserVote} from "../../models/ideas/user-vote";
+import {User} from "../../models/ideas/user";
 
 @Component({
   selector: 'app-idea-vote-form',

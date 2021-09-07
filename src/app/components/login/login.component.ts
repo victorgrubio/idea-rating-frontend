@@ -2,7 +2,7 @@ import {Component, NgZone, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {DataStorageService} from "../../services/data-storage.service";
-import {User} from "../../models/user";
+import {User} from "../../models/ideas/user";
 
 @Component({
   selector: 'app-login',

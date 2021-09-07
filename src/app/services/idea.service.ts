@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {Idea} from "../models/idea";
+import {Idea} from "../models/ideas/idea";
 import {Observable} from "rxjs";
 import {DataStorageService} from "./data-storage.service";
-import {EvaluationSentenceType, EvaluationSentenceWeight} from "../models/evaluation-sentence";
-import {UserVote} from "../models/user-vote";
+import {EvaluationSentenceType, EvaluationSentenceWeight} from "../models/ideas/evaluation-sentence";
+import {UserVote} from "../models/ideas/user-vote";
 
 @Injectable({
   providedIn: 'root'
