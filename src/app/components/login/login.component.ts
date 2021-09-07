@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     let user: User = this.dataStorageService.getUser();
-    if (!this.isEmptyObject(user)) {
+    if (user.username !== "") {
       this.isLoggedIn = true;
       this.user = user;
       this.router.navigate([`/${user.username}/ideas`])
