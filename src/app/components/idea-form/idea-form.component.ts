@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {IdeaService} from "../../services/idea.service";
-import {AlertService} from "../../services/alert.service";
 import {EvaluationSentence, EvaluationSentenceType, EvaluationSentenceWeight} from "../../models/evaluation-sentence";
 import {DataStorageService} from "../../services/data-storage.service";
 import {User} from "../../models/user";
@@ -29,7 +28,6 @@ export class IdeaFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private ideaService: IdeaService,
-    private alertService: AlertService,
     private dataStorageService: DataStorageService
   ) {}
 
@@ -108,8 +106,6 @@ export class IdeaFormComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // reset alerts on submit
-    this.alertService.clear();
 
     // stop here if form is invalid
     if (this.form.invalid) {
@@ -131,11 +127,9 @@ export class IdeaFormComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Idea added', { keepAfterRouteChange: true });
           this.router.navigate(['../'], { relativeTo: this.route });
         },
         error: error => {
-          this.alertService.error(error);
           this.loading = false;
         }
       });
@@ -146,11 +140,9 @@ export class IdeaFormComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Idea updated', { keepAfterRouteChange: true });
           this.router.navigate(['../../'], { relativeTo: this.route });
         },
         error: error => {
-          this.alertService.error(error);
           this.loading = false;
         }
       });

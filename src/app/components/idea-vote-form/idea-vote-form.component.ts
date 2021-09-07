@@ -3,7 +3,6 @@ import {Idea} from "../../models/idea";
 import {IdeaService} from "../../services/idea.service";
 import {DataStorageService} from "../../services/data-storage.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AlertService} from "../../services/alert.service";
 import {UserVote} from "../../models/user-vote";
 import {User} from "../../models/user";
 
@@ -25,7 +24,6 @@ export class IdeaVoteFormComponent implements OnInit {
     private dataStorageService: DataStorageService,
     private route: ActivatedRoute,
     private router: Router,
-    private alertService: AlertService,
   ) { }
 
   ngOnInit(): void {

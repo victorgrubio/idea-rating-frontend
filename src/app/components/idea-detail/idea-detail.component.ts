@@ -3,7 +3,6 @@ import {Idea} from "../../models/idea";
 import {IdeaService} from "../../services/idea.service";
 import {DataStorageService} from "../../services/data-storage.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AlertService} from "../../services/alert.service";
 import {ClipboardService} from "ngx-clipboard";
 import {User} from "../../models/user";
 
@@ -24,7 +23,6 @@ export class IdeaDetailComponent implements OnInit {
     private dataStorageService: DataStorageService,
     private route: ActivatedRoute,
     private router: Router,
-    private alertService: AlertService,
     private clipboardService: ClipboardService
   ) { }
 
@@ -49,7 +47,6 @@ export class IdeaDetailComponent implements OnInit {
     let content: string = window.location.origin + `${this.href}/vote`
     console.log('Link ', content, ' copied to clipboard')
     this.clipboardService.copy(content)
-    this.alertService.success('Link copied to clipboard!')
     this.changeModalStatus();
   }
 
