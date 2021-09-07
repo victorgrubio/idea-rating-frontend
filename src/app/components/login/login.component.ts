@@ -11,14 +11,13 @@ import {User} from "../../models/user";
 })
 export class LoginComponent implements OnInit{
 
-  form: any = {
-    username: null,
-    password: null
+  form: {[id: string]: string} = {
+    username: "",
   };
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  user: any = {};
+  user: User = new User();
 
   constructor(
     private authService: AuthService,
@@ -44,7 +43,7 @@ export class LoginComponent implements OnInit{
     let { username } = this.form;
 
     this.authService.login(username).subscribe(
-      data => {
+      (data: User) => {
         this.dataStorageService.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;

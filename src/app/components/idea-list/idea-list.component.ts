@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IdeaService} from "../../services/idea.service";
 import {DataStorageService} from "../../services/data-storage.service";
 import {Idea} from "../../models/idea";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-idea-list',
@@ -10,7 +11,7 @@ import {Idea} from "../../models/idea";
 })
 export class IdeaListComponent implements OnInit {
 
-  public user: any = {};
+  public user: User = new User();
   public ideaList: Idea[] = [];
 
   constructor(
@@ -35,20 +36,15 @@ export class IdeaListComponent implements OnInit {
     );
   }
 
-
   processIdeaList(){
     return (data: Idea[]) => {
       this.ideaList = data;
     }
   }
 
-
   private processDeleteIdea(idea: Idea) {
     return () => {
-      let index: number = this.ideaList.indexOf(idea);
-      if (index !== -1){
-        this.ideaList.splice(index, 1);
-      }
+      this.ideaList = this.ideaList.filter(ideaArray => ideaArray !== idea);
     };
   }
 }

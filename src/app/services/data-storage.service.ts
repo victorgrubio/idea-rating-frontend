@@ -26,7 +26,7 @@ export class DataStorageService {
     this.currentUser.next(user);
   }
 
-  public getUser(): any {
+  public getUser(): User {
     const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {
       console.log('DataStorageService: Returning user ', user);
@@ -34,6 +34,6 @@ export class DataStorageService {
       return JSON.parse(user) as User;
     }
     console.log('DataStorageService: Returning empty user');
-    return {};
+    return new User();
   }
 }

@@ -5,6 +5,7 @@ import {DataStorageService} from "../../services/data-storage.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../../services/alert.service";
 import {UserVote} from "../../models/user-vote";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-idea-vote-form',
@@ -12,10 +13,10 @@ import {UserVote} from "../../models/user-vote";
   styleUrls: ['./idea-vote-form.component.css']
 })
 export class IdeaVoteFormComponent implements OnInit {
-  form: any = {
-    username: null
+  form: { [id: string] : string; } = {
+    username: ""
   };
-  public user: any = {};
+  public user: User = new User();
   public idea: Idea = new Idea();
   public sentenceVoteList: number[] = [];
 
@@ -43,14 +44,11 @@ export class IdeaVoteFormComponent implements OnInit {
     );
   }
 
-  onSentenceVoteChange(values:any, sentenceId: number):void {
-    if (values.currentTarget.checked) {
+  onSentenceVoteChange(event: Event, sentenceId: number):void {
+    if ((<HTMLInputElement>event.target).checked) {
       this.sentenceVoteList.push(sentenceId)
     } else {
-      let index = this.sentenceVoteList.indexOf(sentenceId);
-      if (index !== -1) {
-        this.sentenceVoteList.slice(index, 1);
-      }
+      this.sentenceVoteList = this.sentenceVoteList.filter(id => id != sentenceId);
     }
   }
 

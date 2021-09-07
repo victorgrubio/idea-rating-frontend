@@ -5,6 +5,7 @@ import {DataStorageService} from "../../services/data-storage.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../../services/alert.service";
 import {ClipboardService} from "ngx-clipboard";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-idea-detail',
@@ -13,7 +14,7 @@ import {ClipboardService} from "ngx-clipboard";
 })
 export class IdeaDetailComponent implements OnInit {
 
-  public user: any = {};
+  public user: User = new User();
   public idea: Idea = new Idea();
   public href: string = "";
 

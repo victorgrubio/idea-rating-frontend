@@ -6,6 +6,7 @@ import {IdeaService} from "../../services/idea.service";
 import {AlertService} from "../../services/alert.service";
 import {EvaluationSentenceType, EvaluationSentenceWeight} from "../../models/evaluation-sentence";
 import {DataStorageService} from "../../services/data-storage.service";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-idea-form',
@@ -21,7 +22,7 @@ export class IdeaFormComponent implements OnInit {
   submitted = false;
   sentenceTypeEnum = EvaluationSentenceType;
   sentenceImportanceWeightList :EvaluationSentenceWeight[] = [];
-  user: any = {};
+  user: User = new User();
 
   constructor(
     private formBuilder: FormBuilder,

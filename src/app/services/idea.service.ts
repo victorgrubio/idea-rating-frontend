@@ -21,27 +21,27 @@ export class IdeaService {
   }
 
   getById(id: number): Observable<Idea> {
-    let username: string = this.dataStorageService.getUser().username;
+    let username: string = this.dataStorageService.getUser().username!;
     let url = `${this.apiUrl}/${username}/ideas/${id}`
     return this.httpClient.get<Idea>(url);
 
   }
 
-  create(body: any) {
-    let username: string = this.dataStorageService.getUser().username;
+  create(body: Idea) {
+    let username: string = this.dataStorageService.getUser().username!;
     let url = `${this.apiUrl}/${username}/ideas`
     return this.httpClient.post<Idea>(url, body)
 
   }
 
-  update(id: number, body: any) {
-    let username: string = this.dataStorageService.getUser().username;
+  update(id: number, body: Idea) {
+    let username: string = this.dataStorageService.getUser().username!;
     let url = `${this.apiUrl}/${username}/ideas/${id}`
     return this.httpClient.put<Idea>(url, body)
   }
 
   delete(id: number){
-    let username: string = this.dataStorageService.getUser().username;
+    let username: string = this.dataStorageService.getUser().username!;
     let url = `${this.apiUrl}/${username}/ideas/${id}`
     return this.httpClient.delete<Idea>(url)
 
