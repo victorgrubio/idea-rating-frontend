@@ -12,6 +12,7 @@ import {User} from "../../models/user";
 export class IdeaListComponent implements OnInit {
 
   public user: User = new User();
+  private currentIdea: Idea = new Idea();
   public ideaList: Idea[] = [];
 
   constructor(
@@ -30,9 +31,14 @@ export class IdeaListComponent implements OnInit {
     );
   }
 
-  deleteIdea(idea: Idea){
-    this.ideaService.delete(idea.id).subscribe(
-      this.processDeleteIdea(idea)
+  setCurrentIdea(idea: Idea){
+    this.currentIdea = idea;
+  }
+
+  deleteCurrentIdea(){
+    console.log('Deleting ', this.currentIdea)
+    this.ideaService.delete(this.currentIdea.id).subscribe(
+      this.processDeleteIdea(this.currentIdea.id)
     );
   }
 
@@ -42,9 +48,13 @@ export class IdeaListComponent implements OnInit {
     }
   }
 
-  private processDeleteIdea(idea: Idea) {
+  private processDeleteIdea(ideaId: number) {
     return () => {
-      this.ideaList = this.ideaList.filter(ideaArray => ideaArray !== idea);
+      this.ideaList = this.ideaList.filter(ideaArray => ideaArray.id !== ideaId);
     };
+  }
+
+  trackByIdea(index:number, idea:Idea): number {
+    return idea.id;
   }
 }

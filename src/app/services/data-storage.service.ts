@@ -29,7 +29,6 @@ export class DataStorageService {
   public getUser(): User {
     const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {
-      console.log('DataStorageService: Returning user ', user);
       this.currentUser.next(JSON.parse(user))
       return JSON.parse(user) as User;
     }

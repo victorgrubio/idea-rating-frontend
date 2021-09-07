@@ -1,7 +1,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-10 ml-10 mr-10 mt-10">
-  <div class="card bordered border-purple-600 shadow-2xl mx-2 mt-3 mb-3" *ngFor="let idea of ideaList">
+  <div class="card bordered border-purple-600 shadow-2xl mx-2 mt-3 mb-3" *ngFor="let idea of ideaList; trackBy: trackByIdea">
     <div class="card-body">
-      <h2 class="card-title">{{idea.title}}
+      <h2 class="card-title">{{idea.title}} - Id: {{idea.id}}
         <div *ngIf="idea.rating >= 0" class="badge mx-2 badge-success">ACCEPT</div>
         <div *ngIf="idea.rating < 0" class="badge mx-2 badge-error">DISCARD</div>
       </h2>
@@ -9,14 +9,13 @@
       <div class="justify-end card-actions">
         <button class="btn btn-md btn-info" routerLink="/{{user.username}}/ideas/{{idea.id}}">More info</button>
         <button class="btn btn-md btn-warning" routerLink="/{{user.username}}/ideas/{{idea.id}}/update">Update</button>
-        <label for="delete-modal" class="btn bt-md btn-error modal-button">Delete</label>
-        <input type="checkbox" id="delete-modal" class="modal-toggle">
-        <div class="modal">
+        <a href="/{{user.username}}/ideas#my-modal" class="btn bt-md btn-error modal-button" (click)="setCurrentIdea(idea)">Delete</a>
+        <div class="modal" id="my-modal">
           <div class="modal-box">
             <p>Are you sure you want to delete this idea?</p>
             <div class="modal-action">
-              <label for="delete-modal" class="btn btn">Cancel</label>
-              <label for="delete-modal" class="btn btn btn-error" (click)="deleteIdea(idea)">Delete</label>
+              <a href="#" class="btn btn">Cancel</a>
+              <a href="#" class="btn btn btn-error" (click)="deleteCurrentIdea()">Delete</a>
             </div>
           </div>
         </div>

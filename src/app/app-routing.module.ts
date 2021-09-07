@@ -9,7 +9,7 @@ import {IdeaVoteFormComponent} from "./components/idea-vote-form/idea-vote-form.
 const routes: Routes = [
   { path: ':username/ideas/:ideaId/vote', component: IdeaVoteFormComponent},
   { path: ':username/ideas/create', component: IdeaFormComponent},
-  { path: ':username/ideas/:ideaId/edit', component: IdeaFormComponent},
+  { path: ':username/ideas/:ideaId/update', component: IdeaFormComponent},
   { path: ':username/ideas/:ideaId', component: IdeaDetailComponent},
   { path: ':username/ideas', component: IdeaListComponent},
   { path: 'login', component: LoginComponent},
