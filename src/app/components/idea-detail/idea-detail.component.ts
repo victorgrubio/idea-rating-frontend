@@ -17,6 +17,7 @@ export class IdeaDetailComponent implements OnInit {
   public user: User = new User();
   public idea: Idea = new Idea();
   public href: string = "";
+  public showShareModal: boolean = false;
 
   constructor(
     private ideaService: IdeaService,
@@ -49,5 +50,10 @@ export class IdeaDetailComponent implements OnInit {
     console.log('Link ', content, ' copied to clipboard')
     this.clipboardService.copy(content)
     this.alertService.success('Link copied to clipboard!')
+    this.changeModalStatus();
+  }
+
+  changeModalStatus(){
+    this.showShareModal = !this.showShareModal;
   }
 }

@@ -24,7 +24,12 @@ export class IdeaService {
     let username: string = this.dataStorageService.getUser().username!;
     let url = `${this.apiUrl}/${username}/ideas/${id}`
     return this.httpClient.get<Idea>(url);
+  }
 
+
+  getByIdAndUsername(id: number, username: string): Observable<Idea> {
+    let url = `${this.apiUrl}/${username}/ideas/${id}`
+    return this.httpClient.get<Idea>(url);
   }
 
   create(body: Idea) {
@@ -35,6 +40,7 @@ export class IdeaService {
   }
 
   update(id: number, body: Idea) {
+    console.log(body)
     let username: string = this.dataStorageService.getUser().username!;
     let url = `${this.apiUrl}/${username}/ideas/${id}`
     return this.httpClient.put<Idea>(url, body)

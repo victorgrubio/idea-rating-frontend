@@ -84,6 +84,7 @@ export class IdeaFormComponent implements OnInit {
 
   createEvaluationSentence(): FormGroup{
     return this.formBuilder.group({
+      id: [null],
       content: [''],
       type: [''],
       weight: [new EvaluationSentenceWeight()]
@@ -117,8 +118,10 @@ export class IdeaFormComponent implements OnInit {
 
     this.loading = true;
     if (this.isAddMode) {
+      console.log('creating idea')
       this.createIdea();
     } else {
+      console.log('updating idea')
       this.updateIdea();
     }
   }

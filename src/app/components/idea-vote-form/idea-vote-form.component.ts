@@ -37,7 +37,8 @@ export class IdeaVoteFormComponent implements OnInit {
 
   getIdeaById() {
     let ideaId: number = +this.route.snapshot.paramMap.get("ideaId")!;
-    this.ideaService.getById(ideaId).subscribe(
+    let username: string = this.route.snapshot.paramMap.get("username")!;
+    this.ideaService.getByIdAndUsername(ideaId, username).subscribe(
       (data: Idea) => {
         this.idea = data;
       }
