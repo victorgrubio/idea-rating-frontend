@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { first } from 'rxjs/operators';
+import {first} from 'rxjs/operators';
 import {IdeaService} from "../../services/idea.service";
 import {AlertService} from "../../services/alert.service";
-import {EvaluationSentenceType, EvaluationSentenceWeight} from "../../models/evaluation-sentence";
+import {EvaluationSentence, EvaluationSentenceType, EvaluationSentenceWeight} from "../../models/evaluation-sentence";
 import {DataStorageService} from "../../services/data-storage.service";
 import {User} from "../../models/user";
 
@@ -44,13 +44,25 @@ export class IdeaFormComponent implements OnInit {
       evaluationSentences: this.formBuilder.array([this.createEvaluationSentence(),])
     });
 
+    this.getImportanceWeightList();
+
     if (!this.isAddMode) {
       this.ideaService.getById(this.id)
         .pipe(first())
-        .subscribe(x => this.form.patchValue(x));
+        .subscribe(x => {
+          let fc = this.getEvaluationSentencesControl()
+          this.form.patchValue(x)
+          if (x.evaluationSentenceList){
+            for (let i = 0; i < x.evaluationSentenceList.length; i++){
+              let sentence: EvaluationSentence = x.evaluationSentenceList[i];
+              fc[i].patchValue(sentence);
+              if (i < x.evaluationSentenceList.length - 1){
+                this.addEvaluationSentence();
+              }
+            }
+          }
+        });
     }
-
-    this.getImportanceWeightList();
   }
 
   // convenience getter for easy access to form fields
@@ -58,6 +70,10 @@ export class IdeaFormComponent implements OnInit {
 
   // get the subarray control
   get evaluationSentencesControl() {
+    return this.getEvaluationSentencesControl()
+  }
+
+  getEvaluationSentencesControl(){
     return (this.form.get('evaluationSentences') as FormArray).controls;
   }
 

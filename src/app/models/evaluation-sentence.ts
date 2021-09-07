@@ -6,8 +6,8 @@ export interface EvaluationSentence {
 }
 
 export enum EvaluationSentenceType{
-  PRO='pro',
-  CON='con'
+  PRO='PRO',
+  CON='CON'
 }
 
 export class EvaluationSentenceWeight {

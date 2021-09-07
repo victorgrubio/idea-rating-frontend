@@ -25,8 +25,8 @@
         <span class="label-text font-bold">{{sentence.type}}</span>
         <span class="label-text">{{sentence.content}}</span>
         <input type="checkbox" class="checkbox" [ngClass]="{
-        'checkbox-primary': sentence.type == 'pro',
-        'checkbox-error': sentence.type == 'con'}"
+        'checkbox-primary': sentence.type == 'PRO',
+        'checkbox-error': sentence.type == 'CON' }"
         (change)="onSentenceVoteChange($event, sentence.id!)">
       </label>
     </div>

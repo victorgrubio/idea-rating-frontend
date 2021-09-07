@@ -6,7 +6,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-row mt-5 mb-5">
       <div class="form-group col-5">
-        <label class="label"><span class="label-text">Title</span></label>
+        <label class="label"><span class="label-text font-bold">Title</span></label>
         <input type="text" formControlName="title"
                class="form-control input input-bordered" [ngClass]="{ 'is-invalid': submitted && f.title.errors }"
                placeholder="Idea title"
@@ -18,7 +18,7 @@
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="label"><span class="label-text">Description</span></label>
+        <label class="label"><span class="label-text font-bold">Description</span></label>
         <textarea
           rows="3" formControlName="description" class="form-control textarea textarea-bordered"
           [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
@@ -35,10 +35,9 @@
     >
       <!-- Show remove button when more than one sentence available -->
       <div >
-        <span>Evaluation Sentence {{i + 1}}</span>
-        <span *ngIf="evaluationSentencesControl.length > 1"
-              (click)="removeSentence(i)">
-                </span>
+        <span class="font-bold">Evaluation Sentence {{i + 1}}</span>
+          <button *ngIf="evaluationSentencesControl.length > 1"
+                  (click)="removeSentence(i)" class="btn btn-error btn-sm mx-2">Remove</button>
       </div>
       <div [formGroupName]="i" class="mt-5 mb-5">
         <div class="form-control mt-2 mb-2">
@@ -63,7 +62,7 @@
       </div>
     </div>
     <div class="flex items-end">
-      <button class="btn btn-outline" (click)="addEvaluationSentence()" type="button">Add NEW Sentence</button>
+      <button class="btn btn-outline" (click)="addEvaluationSentence()" type="button">Add new Sentence</button>
     </div>
     <div class="form-group mt-5 mb-20">
       <a routerLink="/{{user.username}}}/ideas" class="btn btn-link">Cancel</a>
