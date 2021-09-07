@@ -45,8 +45,9 @@ export class IdeaDetailComponent implements OnInit {
 
   copyVoteUrl(){
     let content: string = window.location.origin + `${this.href}/vote`
-    console.log('Link ', content, ' copied to clipboard')
-    this.clipboardService.copy(content)
+    let no_modal_content: string = content.replace("#my-modal", "")
+    console.log('Link ', no_modal_content, ' copied to clipboard')
+    this.clipboardService.copy(no_modal_content)
     this.changeModalStatus();
   }
 

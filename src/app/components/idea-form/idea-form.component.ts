@@ -49,7 +49,7 @@ export class IdeaFormComponent implements OnInit {
         .pipe(first())
         .subscribe(idea => {
           this.form.patchValue(idea)
-          idea.evaluationSentenceList?.map(sentence => {
+          idea.evaluationSentenceList?.map((sentence, index) => {
             this.getEvaluationSentencesControl().push(this.formBuilder.group(sentence))
           })
         })
