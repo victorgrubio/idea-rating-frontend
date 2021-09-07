@@ -10,8 +10,14 @@ export enum EvaluationSentenceType{
   CON='con'
 }
 
-export interface EvaluationSentenceWeight {
+export class EvaluationSentenceWeight {
   id: number;
   name: string;
   weight: number;
+
+  constructor() {
+    this.id = 1;
+    this.name = '';
+    this.weight = 0.0
+  }
 }

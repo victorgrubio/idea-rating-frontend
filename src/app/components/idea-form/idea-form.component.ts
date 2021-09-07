@@ -70,7 +70,7 @@ export class IdeaFormComponent implements OnInit {
     return this.formBuilder.group({
       content: [''],
       type: [''],
-      weight: ['']
+      weight: [new EvaluationSentenceWeight()]
     })
   }
 

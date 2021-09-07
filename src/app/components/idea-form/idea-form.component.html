@@ -47,7 +47,7 @@
         <div class="form-control mt-2 mb-2">
           <select class="select select-bordered" formControlName="type">
             <option disabled="disabled" selected="selected">Choose type</option>
-            <option *ngFor="let enum of sentenceTypeEnum | keyvalue" ngModel="{{enum.value}}">
+            <option *ngFor="let enum of sentenceTypeEnum | keyvalue" [ngValue]="enum.value">
               {{ enum.key }}
             </option>
           </select>
@@ -55,7 +55,7 @@
         <div class="form-control mt-2 mb-2">
           <select class="select select-bordered" formControlName="weight">
             <option disabled="disabled" selected="selected">Choose importance</option>
-            <option *ngFor="let importanceWeight of sentenceImportanceWeightList" ngModel="{{importanceWeight}}">
+            <option *ngFor="let importanceWeight of sentenceImportanceWeightList" [ngValue]="importanceWeight">
               {{ importanceWeight.name }}
             </option>
           </select>
