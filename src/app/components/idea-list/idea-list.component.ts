@@ -14,6 +14,7 @@ export class IdeaListComponent implements OnInit {
   public user: User = new User();
   private currentIdea: Idea = new Idea();
   public ideaList: Idea[] = [];
+  activeDeleteModal: boolean = false;
 
   constructor(
     private ideaService: IdeaService,
@@ -31,7 +32,12 @@ export class IdeaListComponent implements OnInit {
     );
   }
 
+  changeActiveDeleteModal(){
+    this.activeDeleteModal = !this.activeDeleteModal;
+  }
+
   setCurrentIdea(idea: Idea){
+    this.changeActiveDeleteModal();
     this.currentIdea = idea;
   }
 
@@ -40,6 +46,7 @@ export class IdeaListComponent implements OnInit {
     this.ideaService.delete(this.currentIdea.id).subscribe(
       this.processDeleteIdea(this.currentIdea.id)
     );
+    this.changeActiveDeleteModal();
   }
 
   processIdeaList(){
