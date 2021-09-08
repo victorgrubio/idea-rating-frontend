@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://idea-rating-api.herokuapp.com'
+  apiUrl: process.env.API_URL || 'http://my-env.eba-g2gdst4z.us-west-2.elasticbeanstalk.com/'
 };
